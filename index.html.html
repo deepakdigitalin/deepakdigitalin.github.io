@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deepak Dinesh — Digital Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --accent: #f5c842;
+    --accent2: #ff6b35;
+    --text: #f0ede8;
+    --muted: #888899;
+    --border: rgba(245,200,66,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.35s ease;
+    opacity: 0.5;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.35;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem 4rem;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 1.4rem;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+  }
+  .nav-links { display: flex; gap: 2.5rem; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(8rem, 20vw, 22rem);
+    color: rgba(245,200,66,0.03);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.02em;
+    user-select: none;
+  }
+
+  .hero-grid-lines {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(245,200,66,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245,200,66,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(245,200,66,0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.4rem 1rem;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.4); }
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-name span {
+    display: block;
+    color: var(--accent);
+    -webkit-text-stroke: 1px var(--accent);
+  }
+  .hero-name .outline {
+    -webkit-text-stroke: 2px var(--text);
+    color: transparent;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    margin: 1.5rem 0 2rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    max-width: 420px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-ctas {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent);
+    color: #0a0a0f;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(245,200,66,0.25);
+  }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.9rem 2rem;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Hero right — stats */
+  .hero-right {
+    position: relative; z-index: 2;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 2rem;
+    animation: fadeLeft 0.8s 0.5s ease both;
+  }
+
+  /* Hero photo frame */
+  .hero-photo-wrap {
+    position: relative;
+    width: 200px;
+    height: 240px;
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
+  }
+  .hero-photo-wrap::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .hero-photo-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: -12px; right: -12px;
+    width: 60px; height: 60px;
+    border-bottom: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .hero-photo-corner {
+    position: absolute;
+    top: -12px; left: -12px;
+    width: 60px; height: 60px;
+    border-top: 2px solid var(--accent2);
+    border-left: 2px solid var(--accent2);
+    border-radius: 2px;
+    pointer-events: none;
+  }
+  .hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 3px;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.4s ease;
+  }
+  .hero-photo-wrap:hover .hero-photo {
+    filter: grayscale(0%) contrast(1.1);
+  }
+  .hero-photo-label {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    background: rgba(10,10,15,0.85);
+    border: 1px solid var(--border);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0.3rem 0.7rem;
+    border-radius: 2px;
+    backdrop-filter: blur(6px);
+  }
+  /* Photo upload placeholder */
+  .hero-photo-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background: var(--surface2);
+    border: 2px dashed rgba(245,200,66,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .hero-photo-placeholder:hover {
+    border-color: rgba(245,200,66,0.6);
+    background: rgba(245,200,66,0.04);
+  }
+  .hero-photo-placeholder svg {
+    width: 36px; height: 36px;
+    fill: var(--muted);
+    opacity: 0.6;
+  }
+  .hero-photo-placeholder span {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.7;
+    text-align: center;
+    padding: 0 1rem;
+  }
+  #photoInput { display: none; }
+
+  /* Contact avatar */
+  .contact-avatar-wrap {
+    position: relative;
+    width: 90px; height: 90px;
+    margin: 0 auto 2rem;
+  }
+  .contact-avatar-ring {
+    position: absolute; inset: -5px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent) 0deg, var(--accent2) 120deg, transparent 180deg, var(--accent) 360deg);
+    animation: spinRing 4s linear infinite;
+    z-index: 0;
+  }
+  @keyframes spinRing {
+    to { transform: rotate(360deg); }
+  }
+  .contact-avatar-ring::after {
+    content: '';
+    position: absolute; inset: 3px;
+    border-radius: 50%;
+    background: var(--surface);
+    z-index: 1;
+  }
+  .contact-avatar {
+    position: relative; z-index: 2;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(15%);
+  }
+  .contact-avatar-placeholder {
+    position: relative; z-index: 2;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: var(--surface2);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  .contact-avatar-placeholder svg {
+    width: 36px; height: 36px;
+    fill: var(--muted);
+    opacity: 0.5;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    border-radius: 4px;
+    text-align: right;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+    width: 220px;
+  }
+  .stat-card:hover {
+    transform: translateX(-8px);
+    border-color: var(--accent);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+  .stat-number {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 2.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+  }
+
+  .award-badge {
+    background: linear-gradient(135deg, rgba(245,200,66,0.15), rgba(255,107,53,0.1));
+    border: 1px solid rgba(245,200,66,0.3);
+    padding: 1.2rem 1.8rem;
+    border-radius: 4px;
+    display: flex; align-items: center; gap: 1rem;
+    width: 260px;
+    transition: transform 0.3s;
+  }
+  .award-badge:hover { transform: translateX(-8px); }
+  .award-icon { font-size: 2rem; }
+  .award-text { text-align: left; }
+  .award-title { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+  .award-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    animation: fadeUp 1s 1s ease both;
+  }
+  .scroll-hint span {
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+  }
+  .scroll-line {
+    width: 1px; height: 50px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollLine 1.5s ease infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 6rem 4rem;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1; max-width: 60px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 3rem;
+  }
+  .section-title em {
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--surface); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .skill-block {
+    background: var(--surface);
+    padding: 2rem;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-block:hover { background: var(--surface2); }
+  .skill-block::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+  .skill-block:hover::after { width: 100%; }
+
+  .skill-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  .skill-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem;
+  }
+  .skill-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: rgba(245,200,66,0.08);
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    transition: all 0.3s;
+  }
+  .skill-block:hover .skill-tag {
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  /* EXPERIENCE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+    padding-left: 2.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-dot {
+    position: absolute; left: -2.2rem; top: 0.4rem;
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 12px rgba(245,200,66,0.5);
+  }
+  .timeline-meta {
+    display: flex; align-items: center; gap: 1rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+  }
+  .timeline-date {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(245,200,66,0.08);
+    padding: 0.25rem 0.75rem;
+    border-radius: 2px;
+  }
+  .timeline-company {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .timeline-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  .timeline-bullets {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .timeline-bullets li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+  .timeline-bullets li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.75rem;
+  }
+
+  /* TOOLS */
+  #tools { background: var(--surface); }
+
+  .tools-marquee-wrap {
+    overflow: hidden;
+    margin: 0 -4rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .tools-marquee {
+    display: flex; gap: 3rem;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .tools-marquee:hover { animation-play-state: paused; }
+  .tool-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.3s;
+  }
+  .tool-item:hover { color: var(--accent); }
+  .tool-dot { width: 4px; height: 4px; background: var(--accent); border-radius: 50%; opacity: 0.4; }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* CERTS */
+  .certs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .cert-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .cert-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  }
+  .cert-card::before {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(245,200,66,0.1), transparent);
+  }
+  .cert-issuer {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .cert-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+  }
+  .cert-desc {
+    font-size: 0.8rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .cert-validity {
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: rgba(245,200,66,0.08);
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2px;
+  }
+
+  /* CONTACT */
+  #contact {
+    background: var(--surface);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  #contact::before {
+    content: 'CONNECT';
+    position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(6rem, 20vw, 18rem);
+    color: rgba(245,200,66,0.025);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+  .contact-inner { position: relative; z-index: 2; max-width: 600px; margin: 0 auto; }
+  .contact-heading {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+  .contact-sub {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .contact-links {
+    display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.8rem 1.5rem;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .contact-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* EDUCATION */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .edu-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+  }
+  .edu-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  .edu-card:hover::after { transform: scaleX(1); }
+  .edu-degree {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .edu-school {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .edu-meta {
+    display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .edu-year {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+  }
+  .edu-score {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: rgba(245,200,66,0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 2rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 2rem 4rem; gap: 3rem; }
+    .hero-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; }
+    section { padding: 4rem 2rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .certs-grid, .edu-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .tools-marquee-wrap { margin: 0 -2rem; }
+  }
+
+  @media (max-width: 600px) {
+    .skills-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .hero-right { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">DD</div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#tools">Tools</a>
+    <a href="#certifications">Certs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-grid-lines"></div>
+  <div class="hero-bg-text">SEO</div>
+
+  <div class="hero-left">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">
+      <span class="outline">Deepak</span>
+      <span>Dinesh</span>
+    </h1>
+    <p class="hero-title">Digital Marketing Executive · SEO Specialist · Meta Ads</p>
+    <p class="hero-desc">
+      Results-driven marketer with end-to-end SEO expertise, paid social advertising via Meta Ads, and website management. Independent. Data-obsessed. Growth-focused.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get In Touch →</a>
+      <a href="#experience" class="btn-outline">View Work</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+
+    <!-- Profile Photo -->
+    <div class="hero-photo-wrap" id="heroPhotoWrap">
+      <div class="hero-photo-corner"></div>
+      <div class="hero-photo-placeholder" id="heroPlaceholder" onclick="document.getElementById('photoInput').click()">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        <span>Click to add your photo</span>
+      </div>
+      <img id="heroPhotoImg" class="hero-photo" src="" alt="Deepak Dinesh" style="display:none;">
+      <div class="hero-photo-label" id="heroPhotoLabel" style="display:none;">Deepak Dinesh</div>
+    </div>
+    <input type="file" id="photoInput" accept="image/*">
+
+    <div class="stat-card">
+      <div class="stat-number">1.5+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5+</div>
+      <div class="stat-label">Websites Managed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8.7</div>
+      <div class="stat-label">B.Sc. CS CGPA</div>
+    </div>
+    <div class="award-badge">
+      <div class="award-icon">🏆</div>
+      <div class="award-text">
+        <div class="award-title">Employee of the Month</div>
+        <div class="award-sub">Vishakarex · February 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title reveal">Core <em>Competencies</em></h2>
+  <div class="skills-grid reveal">
+    <div class="skill-block">
+      <div class="skill-icon">🔍</div>
+      <div class="skill-name">On-Page SEO</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Keyword Placement</span>
+        <span class="skill-tag">Meta Tags</span>
+        <span class="skill-tag">Heading Structure</span>
+        <span class="skill-tag">Internal Linking</span>
+        <span class="skill-tag">Content Optimisation</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon">🔗</div>
+      <div class="skill-name">Off-Page SEO</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Backlink Outreach</span>
+        <span class="skill-tag">Guest Posting</span>
+        <span class="skill-tag">Directory Submissions</span>
+        <span class="skill-tag">Authority Building</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">Technical SEO</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Site Audits</span>
+        <span class="skill-tag">Crawlability</span>
+        <span class="skill-tag">Site Speed</span>
+        <span class="skill-tag">Schema Markup</span>
+        <span class="skill-tag">Core Web Vitals</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon">📣</div>
+      <div class="skill-name">Meta Ads</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Campaign Strategy</span>
+        <span class="skill-tag">Audience Targeting</span>
+        <span class="skill-tag">Creative Testing</span>
+        <span class="skill-tag">Budget Management</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Analytics & Reporting</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Google Analytics 4</span>
+        <span class="skill-tag">Search Console</span>
+        <span class="skill-tag">Traffic Analysis</span>
+        <span class="skill-tag">Conversion Tracking</span>
+      </div>
+    </div>
+    <div class="skill-block">
+      <div class="skill-icon">🔎</div>
+      <div class="skill-name">Keyword Research</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SEMrush</span>
+        <span class="skill-tag">Ahrefs</span>
+        <span class="skill-tag">Screaming Frog</span>
+        <span class="skill-tag">Competitor Analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Where I've Been</div>
+  <h2 class="section-title reveal">Professional <em>Experience</em></h2>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-date">Nov 2024 – Present</span>
+        <span class="timeline-company">Vishakarex, Chennai</span>
+      </div>
+      <div class="timeline-role">Digital Marketing Executive</div>
+      <ul class="timeline-bullets">
+        <li>Own end-to-end SEO for the company website — audits, keyword mapping, on-page optimisation, technical fixes and monthly reporting</li>
+        <li>Plan and execute off-page strategies including outreach campaigns, guest posting and high-authority directory submissions</li>
+        <li>Run and manage Meta Ads campaigns independently — from audience segmentation and creative development through to performance analysis and budget allocation</li>
+        <li>Monitor website traffic, analyse user behaviour via GA4 & Search Console, deliver regular performance reports to management</li>
+        <li>Optimise content across website and social channels (Facebook, Instagram) to improve reach and engagement</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-date">April 2024 – Oct 2024</span>
+        <span class="timeline-company">Open Designs, Chennai</span>
+      </div>
+      <div class="timeline-role">Digital Marketing Executive (Intern)</div>
+      <ul class="timeline-bullets">
+        <li>Executed daily website audits, keyword research and on-page SEO implementation under senior SEO team guidance</li>
+        <li>Built backlinks through outreach, guest posting and directory submissions</li>
+        <li>Created SEO-optimised blog content and managed WordPress page updates</li>
+        <li>Assisted in running Google Ads and Meta Ads campaigns at small scale</li>
+        <li>Organised and managed lead databases to support marketing campaigns</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-meta">
+        <span class="timeline-date">Aug 2023 – Jan 2024</span>
+        <span class="timeline-company">Accenture Solutions Pvt Ltd., Chennai</span>
+      </div>
+      <div class="timeline-role">Transaction Processing Representative</div>
+      <ul class="timeline-bullets">
+        <li>Handled end-to-end transaction processing with 100% accuracy and compliance to SLA timelines</li>
+        <li>Reviewed, validated and updated client data and financial transactions</li>
+        <li>Supported reporting and data management using Excel and internal CRM tools</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label">My Arsenal</div>
+  <h2 class="section-title reveal">Tools & <em>Platforms</em></h2>
+  <div class="tools-marquee-wrap">
+    <div class="tools-marquee">
+      <div class="tool-item"><span class="tool-dot"></span>SEMrush</div>
+      <div class="tool-item"><span class="tool-dot"></span>Ahrefs</div>
+      <div class="tool-item"><span class="tool-dot"></span>Screaming Frog</div>
+      <div class="tool-item"><span class="tool-dot"></span>Ubersuggest</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Analytics 4</div>
+      <div class="tool-item"><span class="tool-dot"></span>Search Console</div>
+      <div class="tool-item"><span class="tool-dot"></span>Meta Ads Manager</div>
+      <div class="tool-item"><span class="tool-dot"></span>Meta Business Suite</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Ads</div>
+      <div class="tool-item"><span class="tool-dot"></span>WordPress</div>
+      <div class="tool-item"><span class="tool-dot"></span>Excel</div>
+      <!-- duplicate for seamless loop -->
+      <div class="tool-item"><span class="tool-dot"></span>SEMrush</div>
+      <div class="tool-item"><span class="tool-dot"></span>Ahrefs</div>
+      <div class="tool-item"><span class="tool-dot"></span>Screaming Frog</div>
+      <div class="tool-item"><span class="tool-dot"></span>Ubersuggest</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Analytics 4</div>
+      <div class="tool-item"><span class="tool-dot"></span>Search Console</div>
+      <div class="tool-item"><span class="tool-dot"></span>Meta Ads Manager</div>
+      <div class="tool-item"><span class="tool-dot"></span>Meta Business Suite</div>
+      <div class="tool-item"><span class="tool-dot"></span>Google Ads</div>
+      <div class="tool-item"><span class="tool-dot"></span>WordPress</div>
+      <div class="tool-item"><span class="tool-dot"></span>Excel</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-label">Credentials</div>
+  <h2 class="section-title reveal"><em>Certifications</em></h2>
+  <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-issuer">Semrush Academy</div>
+      <div class="cert-name">Local SEO Essentials with Semrush</div>
+      <div class="cert-desc">Advanced local SEO strategies, optimisation techniques and Semrush performance tracking</div>
+      <div class="cert-validity">✓ Valid through Aug 2026</div>
+    </div>
+    <div class="cert-card reveal">
+      <div class="cert-issuer">HubSpot Academy</div>
+      <div class="cert-name">Social Media Certified</div>
+      <div class="cert-desc">Inbound social media strategy, social monitoring, content planning, engagement and ROI measurement</div>
+      <div class="cert-validity">✓ Valid: Aug 2025 – Sep 2027</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" style="background: var(--surface);">
+  <div class="section-label">Academic Background</div>
+  <h2 class="section-title reveal"><em>Education</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">B.Sc. Computer Science</div>
+      <div class="edu-school">Guru Nanak College, Chennai</div>
+      <div class="edu-meta">
+        <span class="edu-year">Oct 2021 – April 2024</span>
+        <span class="edu-score">CGPA 8.7 / 10</span>
+      </div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-degree">Higher Secondary Education</div>
+      <div class="edu-school">KRMHSS, Chennai</div>
+      <div class="edu-meta">
+        <span class="edu-year">Oct 2019 – April 2021</span>
+        <span class="edu-score">Score: 70%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <!-- Avatar -->
+    <div class="contact-avatar-wrap" onclick="document.getElementById('photoInput').click()" style="cursor:pointer;" title="Click to add photo">
+      <div class="contact-avatar-ring"></div>
+      <img id="contactAvatarImg" class="contact-avatar" src="" alt="Deepak Dinesh" style="display:none;">
+      <div class="contact-avatar-placeholder" id="contactAvatarPlaceholder">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      </div>
+    </div>
+    <div class="section-label" style="justify-content: center;">Let's Talk</div>
+    <div class="contact-heading reveal">
+      Got a project<br>in <em style="color:var(--accent)">mind?</em>
+    </div>
+    <p class="contact-sub reveal">
+      Open to full-time roles, freelance projects, and collaborations in digital marketing, SEO, and paid social. Based in Chennai, India.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:deepakdin056@gmail.com" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        deepakdin056@gmail.com
+      </a>
+      <a href="tel:9940459106" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        9940459106
+      </a>
+      <a href="https://linkedin.com/in/deepak-dinesh-523429279" target="_blank" class="contact-link">
+        <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+    <p style="font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em;">📍 Thiruvanmiyar, Chennai – 600041</p>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Deepak Dinesh</span>
+  <span>Digital Marketing Executive · SEO Specialist · Meta Ads</span>
+</footer>
+
+<script>
+  // Photo upload — hero + contact avatar
+  const photoInput = document.getElementById('photoInput');
+  const heroPlaceholder = document.getElementById('heroPlaceholder');
+  const heroPhotoImg = document.getElementById('heroPhotoImg');
+  const heroPhotoLabel = document.getElementById('heroPhotoLabel');
+  const contactAvatarImg = document.getElementById('contactAvatarImg');
+  const contactAvatarPlaceholder = document.getElementById('contactAvatarPlaceholder');
+
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const src = ev.target.result;
+      // Hero photo
+      heroPhotoImg.src = src;
+      heroPhotoImg.style.display = 'block';
+      heroPlaceholder.style.display = 'none';
+      heroPhotoLabel.style.display = 'block';
+      // Contact avatar
+      contactAvatarImg.src = src;
+      contactAvatarImg.style.display = 'block';
+      contactAvatarPlaceholder.style.display = 'none';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2.5)'; ring.style.transform = 'scale(1.5)'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.transform = 'scale(1)'; });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
